@@ -11,6 +11,10 @@ React dashboard, Express API, and MongoDB/Mongoose data layer.
 
 For local MongoDB, Docker Desktop users can start the included service with `docker compose up -d mongodb`. The `.env.example` file contains the local connection string. If you already have Atlas, keep its URI in your ignored `.env` file instead.
 
+## Deploy
+
+Deploy this as a Node/Express web service so the website and `/api` routes use the same origin; a static-only frontend host cannot run the API. Use `npm ci && npm run build` as the build command and `npm start` as the start command. Set `NODE_ENV=production`, `MONGO_URI` to the MongoDB Atlas connection string, `JWT_SECRET` to a long random secret, and `ADMIN_NAME`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` for the first administrator. The service supplies `PORT`; the server binds to `0.0.0.0` in production. Allow the hosting service to connect to Atlas in the Atlas Network Access settings.
+
 The dashboard runs at `http://127.0.0.1:5173`; the API runs at `http://127.0.0.1:5001` by default. Set `PORT` in `.env` to change the API port; Vite uses the same value for its API proxy.
 MongoDB stores the database as `roadwatch`, with reports and user accounts in separate collections. GeoJSON coordinates are stored as `[longitude, latitude]` with a `2dsphere` index. The initial admin is created from the environment settings when the server first connects. Citizens can register from the sign-in screen. Passwords are hashed; sessions use signed, HTTP-only cookies.
 

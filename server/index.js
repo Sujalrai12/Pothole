@@ -17,6 +17,7 @@ import { demoReports } from './data.js'
 
 const app = express()
 const port = process.env.PORT || 5001
+const host = process.env.HOST || (process.env.NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1')
 const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/roadwatch'
 const jwtSecret = process.env.JWT_SECRET
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -310,6 +311,8 @@ app.patch('/api/reports/:id/status', requireAuth, requireAdmin, async (req, res)
   } catch (error) { return res.status(500).json({ message: errorMessage(error) }) }
 })
 
+app.use('/api', (_req, res) => res.status(404).json({ message: 'RoadWatch API route not found. Check the deployed server URL and API route.' }))
+
 app.use((error, _req, res, _next) => {
   console.error(error)
   const status = error instanceof multer.MulterError ? error.code === 'LIMIT_FILE_SIZE' ? 413 : 400 : 400
@@ -327,7 +330,7 @@ mongoose.connection.on('connected', () => { mongoConnected = true })
 
 async function startServer() {
   if (!jwtSecret) console.warn('JWT_SECRET is not configured. Authentication endpoints will not accept sessions.')
-  app.listen(port, '127.0.0.1', () => console.log(`RoadWatch API listening on http://127.0.0.1:${port}`))
+  app.listen(port, host, () => console.log(`RoadWatch API listening on http://${host}:${port}`))
 
   const connectToDatabase = async () => {
     try {

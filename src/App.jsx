@@ -32,6 +32,17 @@ const demoTeam = [
 
 const formatDate = (value) => new Intl.DateTimeFormat('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(value))
 
+async function readApiJson(response) {
+  const body = await response.text()
+  let result = null
+  try { result = body ? JSON.parse(body) : null } catch {}
+  if (!result || typeof result !== 'object') {
+    throw new Error(`The deployed site did not receive a JSON response from the RoadWatch API (HTTP ${response.status}). Deploy the Express server with the website and verify the production API URL.`)
+  }
+  if (!response.ok) throw new Error(result.message || `The RoadWatch server returned an error (${response.status}).`)
+  return result
+}
+
 function StatusBadge({ status }) {
   const key = status.toLowerCase().replace(' ', '-')
   return <span className={`status-badge ${key}`}><i />{status}</span>
@@ -321,13 +332,12 @@ function AuthPage({ onAuthenticated }) {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
       })
-      const result = await response.json()
-      if (!response.ok) throw new Error(result.message || 'Could not sign in.')
+      const result = await readApiJson(response)
       setEmail('')
       setPassword('')
       setName('')
       onAuthenticated(result.user)
-    } catch (authError) { setError(authError.message) }
+    } catch (authError) { setError(authError.message === 'Failed to fetch' ? 'Could not reach the RoadWatch API. Check that the backend is deployed and the API URL is configured.' : authError.message) }
     finally { setSaving(false) }
   }
 
