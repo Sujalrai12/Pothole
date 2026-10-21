@@ -631,8 +631,8 @@ export default function App() {
             <span className="brand-mark"><Activity size={26} strokeWidth={2.8} /></span>
             <span><strong>RoadWatch</strong><small>{session.role === 'admin' ? 'Admin workspace' : 'Citizen portal'}</small></span>
           </a>
-          <button className="sidebar-back-button" aria-label="Back to dashboard" title="Back to dashboard" onClick={() => setMenuOpen(false)}><ArrowLeft size={19} /><span>Back</span></button>
         </div>
+        <button className="sidebar-back-button" aria-label="Back to dashboard" title="Back to dashboard" onClick={() => setMenuOpen(false)}><ArrowLeft size={17} /><span>Back to dashboard</span></button>
         <div className="sidebar-label">WORKSPACE</div>
         <nav className="side-nav" aria-label="Main navigation">
           {visibleNavItems.map(({ label, icon: Icon }) => <button key={label} className={`nav-link ${activeNav === label ? 'active' : ''}`} onClick={() => { setActiveNav(label); setMenuOpen(false) }}>
