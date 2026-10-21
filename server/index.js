@@ -57,7 +57,9 @@ const toClientReport = (report) => ({
 const errorMessage = (error) => {
   const details = `${error?.name || ''} ${error?.message || ''}`
   if (/MongooseServerSelectionError|MongoNetworkError|MongoNetworkTimeoutError|SSL routines|tlsv1 alert/i.test(details)) {
-    return 'The database connection failed. Add this computer’s public IP to the MongoDB Atlas Network Access list and allow outbound TCP on ports 27015–27017, then restart the server.'
+    return process.env.NODE_ENV === 'production'
+      ? 'The deployed server could not connect to MongoDB Atlas. In Render, open this Web Service → Connect → Outbound and add its outbound IP ranges to Atlas → Security → Network Access. Also verify MONGO_URI and the Atlas database user.'
+      : 'The database connection failed. Add this computer’s public IP to the MongoDB Atlas Network Access list, verify MONGO_URI and the Atlas database user, then restart the server.'
   }
   return process.env.NODE_ENV === 'production' ? 'The request could not be completed.' : error.message
 }

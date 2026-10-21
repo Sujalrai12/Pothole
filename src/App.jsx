@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { MapContainer, TileLayer, CircleMarker, Popup, ZoomControl, useMap, useMapEvents } from 'react-leaflet'
 import {
-  Activity, ArrowDownRight, ArrowRight, ArrowUpRight, Bell, CalendarDays,
+  Activity, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, Bell, CalendarDays,
   Check, ChevronDown, CircleHelp, Clock3, Crosshair, Database, Download, FileText, Filter, Home,
   LocateFixed, LogOut, Mail, Map, MapPin, Menu, MoreHorizontal, Plus, Search, Settings, ShieldCheck,
   SlidersHorizontal, Users, UserPlus, X, Eye,
@@ -626,10 +626,13 @@ export default function App() {
   return (
     <div className="app-shell">
       <aside className={`sidebar ${menuOpen ? 'sidebar-open' : ''}`}>
-        <a className="brand" href="#overview" onClick={() => setActiveNav('Overview')}>
-          <span className="brand-mark"><Activity size={26} strokeWidth={2.8} /></span>
-          <span><strong>RoadWatch</strong><small>{session.role === 'admin' ? 'Admin workspace' : 'Citizen portal'}</small></span>
-        </a>
+        <div className="sidebar-header">
+          <a className="brand" href="#overview" onClick={() => { setActiveNav(session.role === 'admin' ? 'Overview' : 'My dashboard'); setMenuOpen(false) }}>
+            <span className="brand-mark"><Activity size={26} strokeWidth={2.8} /></span>
+            <span><strong>RoadWatch</strong><small>{session.role === 'admin' ? 'Admin workspace' : 'Citizen portal'}</small></span>
+          </a>
+          <button className="sidebar-back-button" aria-label="Back to dashboard" title="Back to dashboard" onClick={() => setMenuOpen(false)}><ArrowLeft size={19} /><span>Back</span></button>
+        </div>
         <div className="sidebar-label">WORKSPACE</div>
         <nav className="side-nav" aria-label="Main navigation">
           {visibleNavItems.map(({ label, icon: Icon }) => <button key={label} className={`nav-link ${activeNav === label ? 'active' : ''}`} onClick={() => { setActiveNav(label); setMenuOpen(false) }}>
