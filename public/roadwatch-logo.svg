@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 356 80" fill="none">
+  <defs><linearGradient id="pin" x1="10" y1="7" x2="53" y2="59" gradientUnits="userSpaceOnUse"><stop stop-color="#24C6BE"/><stop offset="1" stop-color="#087F91"/></linearGradient></defs>
+  <g transform="translate(8 8)">
+    <path d="M32 3.5c-13 0-23.5 10.5-23.5 23.4 0 16.1 18 31.2 21 33.6a3.9 3.9 0 0 0 5 0c3-2.4 21-17.5 21-33.6C55.5 14 45 3.5 32 3.5Z" fill="url(#pin)"/>
+    <path d="M22 15h20l-3.1 8.2 3.7 5.5-4.8 7.2 2.7 7.8H22l3.1-8.2-3.7-5.5 4.8-7.2L22 15Z" fill="#F5FFFF"/>
+    <path d="m33.6 15-2.1 8.3 2.1 5.4-2.1 7.2 2.1 7.8" stroke="#0A8793" stroke-width="2.1" stroke-linecap="round" stroke-dasharray="3.2 3.2"/><ellipse cx="32" cy="32.1" rx="4.2" ry="3.3" fill="#10283D"/><ellipse cx="32" cy="30.8" rx="2.2" ry="1.2" fill="#304D5E"/>
+  </g>
+  <text x="77" y="43" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="31" font-weight="700" letter-spacing="-.8">RoadWatch</text>
+  <text x="79" y="62" fill="#A9C0D0" font-family="Arial, sans-serif" font-size="10" font-weight="600" letter-spacing="2.1">SAFER ROADS, TOGETHER</text>
+</svg>

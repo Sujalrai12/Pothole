@@ -128,7 +128,6 @@ function validateReportInput(body = {}) {
   const zone = typeof body.zone === 'string' ? body.zone.trim() : ''
   const lat = Number(body.lat)
   const lng = Number(body.lng)
-  if (!neighborhood || !wardNumber || !road || !zone) return { error: 'Neighborhood, ward number, road name and zone are required.' }
   if (neighborhood.length > 100 || wardNumber.length > 20 || road.length > 180 || zone.length > 100) return { error: 'Location fields are too long.' }
   if (!Number.isFinite(lat) || lat < -90 || lat > 90 || !Number.isFinite(lng) || lng < -180 || lng > 180) return { error: 'A valid latitude and longitude are required.' }
   const severity = body.severity || 'Medium'

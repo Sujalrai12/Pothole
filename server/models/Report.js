@@ -2,9 +2,9 @@ import mongoose from 'mongoose'
 
 const reportSchema = new mongoose.Schema({
   reference: { type: String, unique: true, index: true },
-  neighborhood: { type: String, required: true, trim: true, maxlength: 100 },
+  neighborhood: { type: String, default: '', trim: true, maxlength: 100 },
   wardNumber: { type: String, default: '', trim: true, maxlength: 20 },
-  road: { type: String, required: true, trim: true, maxlength: 180 },
+  road: { type: String, default: '', trim: true, maxlength: 180 },
   zone: { type: String, default: '', trim: true, maxlength: 100 },
   description: { type: String, default: '', trim: true, maxlength: 1200 },
   image: { type: String, default: 'pothole-one' },
